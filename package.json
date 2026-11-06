@@ -1,0 +1,24 @@
+{
+  "name": "development-economics-portal",
+  "version": "1.0.0",
+  "description": "Interactive Academic Study Portal & Exam Preparation Platform for Development Economics (0388 21 DS 2201)",
+  "main": "index.html",
+  "scripts": {
+    "start": "powershell -ExecutionPolicy Bypass -File ./server.ps1",
+    "open": "powershell -Command \"Start-Process 'http://localhost:8080/'\""
+  },
+  "keywords": [
+    "development-economics",
+    "ds-2201",
+    "harrod-domar",
+    "solow-swan",
+    "fgt-poverty",
+    "gini-coefficient",
+    "hdi",
+    "bangladesh-rmg",
+    "institutions",
+    "khulna-university"
+  ],
+  "author": "Antigravity Academic Agent",
+  "license": "MIT"
+}
