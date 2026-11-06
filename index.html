@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development Economics (0388 21 DS 2201) | Academic Learning Portal</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e3a8a">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-200">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <button id="mobile-menu-toggle" onclick="document.getElementById('sidebar-drawer').classList.toggle('-translate-x-full')" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+
+        <a href="javascript:void(0)" onclick="App.navigate('syllabus')" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20">
+            DS
+          </div>
+          <div>
+            <div class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white leading-tight">
+              Development Economics
+            </div>
+            <div class="text-[11px] font-mono text-blue-600 dark:text-blue-400 font-semibold">
+              0388 21 DS 2201 • 2nd Year 2nd Term
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Global Search Bar -->
+      <div class="flex-1 max-w-md hidden sm:block">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+          <input type="text" id="global-search" placeholder="Search chapters, topics, formulas (e.g., Gini, Harrod-Domar, Khulna, RMG)..." 
+            class="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+        </div>
+      </div>
+
+      <!-- Action Utilities -->
+      <div class="flex items-center gap-2.5">
+        <!-- Progress Counter -->
+        <button onclick="App.navigate('progress')" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 text-xs font-semibold hover:bg-blue-100 transition">
+          <span>📈 Progress:</span>
+          <span id="sidebar-progress-badge" class="font-mono font-bold bg-blue-600 text-white px-1.5 py-0.5 rounded text-[10px]">0%</span>
+        </button>
+
+        <!-- Dark/Light Mode Switcher -->
+        <button id="theme-toggle-btn" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition" title="Toggle Theme">
+          <span id="theme-toggle-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- App Body Layout -->
+  <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex gap-8 relative">
+    
+    <!-- Sidebar Navigation Drawer (Desktop sticky, Mobile flyout) -->
+    <aside id="sidebar-drawer" class="fixed md:sticky top-20 z-30 inset-y-0 left-0 w-64 md:w-72 bg-white dark:bg-slate-900 md:bg-transparent -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:block flex-shrink-0 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2 space-y-6 no-print border-r md:border-r-0 border-slate-200 dark:border-slate-800 p-4 md:p-0">
+      
+      <!-- Primary App Navigation Links -->
+      <nav class="space-y-1">
+        <button onclick="App.navigate('syllabus')" id="nav-syllabus" class="nav-link w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-3 transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
+          <span>📚</span>
+          <span>Course Syllabus & CLOs</span>
+        </button>
+
+        <button onclick="App.navigate('questions')" id="nav-questions" class="nav-link w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-3 transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
+          <span>📝</span>
+          <span>Exam Question Bank (2/5/10 M)</span>
+        </button>
+
+        <button onclick="App.navigate('handnotes')" id="nav-handnotes" class="nav-link w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-3 transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
+          <span>⚡</span>
+          <span>Handnotes & Formulas</span>
+        </button>
+
+        <button onclick="App.navigate('videos')" id="nav-videos" class="nav-link w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-3 transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
+          <span>🎥</span>
+          <span>Curated Video Hub</span>
+        </button>
+
+        <button onclick="App.navigate('calculators')" id="nav-calculators" class="nav-link w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-3 transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
+          <span>📊</span>
+          <span>Economics Calculators Lab</span>
+        </button>
+
+        <button onclick="App.navigate('model-tests')" id="nav-model-tests" class="nav-link w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-3 transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
+          <span>⏱️</span>
+          <span>Timed Model Test Hall</span>
+        </button>
+
+        <button onclick="App.navigate('progress')" id="nav-progress" class="nav-link w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-3 transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
+          <span>📈</span>
+          <span>Progress & Analytics</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Curriculum Chapter List -->
+      <div class="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3">Curriculum Chapters</div>
+        <div id="sidebar-chapters-list" class="space-y-1"></div>
+      </div>
+
+      <!-- Quick Exam Helper Box -->
+      <div class="p-4 rounded-xl bg-gradient-to-br from-blue-900 to-indigo-900 text-white space-y-2 text-xs shadow-md">
+        <div class="font-bold flex items-center gap-1.5">
+          <span>💡</span> University Exam Strategy
+        </div>
+        <p class="text-blue-200 text-[11px] leading-relaxed">
+          For 2 marks, write tightly defined 1 A4 page equivalent. For 5 marks, structure 3-4 pages with comparative tables. For 10 marks, show all numerical calculation steps!
+        </p>
+      </div>
+    </aside>
+
+    <!-- Main Content Dynamic Container -->
+    <main id="main-content" class="flex-1 min-w-0 max-w-4xl space-y-6 pb-16">
+      <!-- Content is dynamically rendered here by App router -->
+    </main>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 no-print">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        <span class="font-bold text-slate-700 dark:text-slate-300">Development Economics (DS 2201)</span> • Academic Study Platform
+      </div>
+      <div>
+        Aligned with University Curriculum & Class Test Patterns • LocalStorage Saved
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/course-data.js"></script>
+  <script src="js/questions-data.js"></script>
+  <script src="js/calculators.js"></script>
+  <script src="js/model-tests.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Auto-rerun Math Rendering after dynamic DOM injection -->
+  <script>
+    const observer = new MutationObserver(() => {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.getElementById('main-content'), {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    });
+    const target = document.getElementById('main-content');
+    if (target) {
+      observer.observe(target, { childList: true, subtree: true });
+    }
+  </script>
+</body>
+</html>
